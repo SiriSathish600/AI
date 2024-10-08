@@ -1,0 +1,128 @@
+def vacuum_world():
+    # Initializing goal_state
+    goal_state = {'A': '0', 'B': '0', 'C': '0', 'D': '0'}
+    cost = 0
+
+    # User input for the initial location and statuses
+    location_input = input("Enter Location of Vacuum (A/B/C/D): ").upper()
+    status_input = input(f"Enter status of {location_input} (0 for CLEAN, 1 for DIRTY): ")
+
+    rooms = ['A', 'B', 'C', 'D']
+    initial_state = {room: status_input for room in rooms}
+
+    # Set the initial status for the other rooms
+    for room in rooms:
+        if room != location_input:
+            status_input_complement = input(f"Enter status of {room} (0 for CLEAN, 1 for DIRTY): ")
+            initial_state[room] = status_input_complement
+
+    print("Initial Location Condition: " + str(initial_state))
+
+    # Helper function to clean a room
+    def clean_room(room):
+        nonlocal cost
+        if initial_state[room] == '1':  # If room is dirty
+            initial_state[room] = '0'  # Clean it
+            cost += 1  # Cost for cleaning
+            print(f"Room {room} has been cleaned. Cost: {cost}")
+
+    # Process based on the location of the vacuum
+    if location_input in rooms:
+        # Clean the current room
+        clean_room(location_input)
+
+        # Allow user to choose which room to move to
+        while True:
+            print("Current Location: " + location_input)
+            next_room = input("Which room do you want to move to (A/B/C/D)? ").upper()
+
+            if next_room in rooms:
+                location_input = next_room  # Update the current location
+                clean_room(next_room)  # Clean the room after moving
+            else:
+                print("Invalid room. Please enter A, B, C, or D.")
+
+            # Check if all rooms are clean
+            if all(status == '0' for status in initial_state.values()):
+                print("All rooms are clean!")
+                break
+
+    # Final results
+    print("GOAL STATE: ")
+    print(initial_state)
+    print("Cost when suck operation takes place: " + str(cost))
+
+vacuum_world()
+
+
+output
+
+
+[ ]
+#INSTRUCTIONS
+#Enter LOCATION A/B in captial letters
+#Enter Status O/1 accordingly where 0 means CLEAN and 1 means DIRTY
+
+def vacuum_world():
+        # initializing goal_state
+        # 0 indicates Clean and 1 indicates Dirty
+    goal_state = {'A': '0', 'B': '0'}
+    cost = 0
+
+…                # suck and mark clean
+                print("Location A is already clean.")
+
+    # done cleaning
+    print("GOAL STATE: ")
+    print(goal_state)
+    print("Performance Measurement: " + str(cost))
+
+
+vacuum_world()
+Enter Location of Vacuum:A
+Enter status of: A1
+Enter status of other room:1
+Initial Location Condition :{'A': '0', 'B': '0'}
+Vacuum is placed in Location A
+Location A is Dirty.
+Cost for CLEANING A 1
+Location A has been Cleaned.
+Location B is Dirty.
+Moving right to the Location B. 
+COST for moving RIGHT2
+COST for SUCK 3
+Location B has been Cleaned. 
+GOAL STATE: 
+{'A': '0', 'B': '0'}
+Performance Measurement: 3
+
+[ ]
+def vacuum_world():
+    # Initializing goal_state
+    goal_state = {'A': '0', 'B': '0', 'C': '0', 'D': '0'}
+    cost = 0
+
+    # User input for the initial location and statuses
+    location_input = input("Enter Location of Vacuum (A/B/C/D): ").upper()
+    status_input = input(f"Enter status of {location_input} (0 for CLEAN, 1 for DIRTY): ")
+
+    rooms = ['A', 'B', 'C', 'D']
+…    print("GOAL STATE: ")
+    print(initial_state)
+    print("Cost when suck operation takes place: " + str(cost))
+
+vacuum_world()
+
+Enter Location of Vacuum (A/B/C/D): A
+Enter status of A (0 for CLEAN, 1 for DIRTY): 0
+Enter status of B (0 for CLEAN, 1 for DIRTY): 0
+Enter status of C (0 for CLEAN, 1 for DIRTY): 0
+Enter status of D (0 for CLEAN, 1 for DIRTY): 1
+Initial Location Condition: {'A': '0', 'B': '0', 'C': '0', 'D': '1'}
+Current Location: A
+Which room do you want to move to (A/B/C/D)? D
+Room D has been cleaned. Cost: 1
+All rooms are clean!
+GOAL STATE: 
+{'A': '0', 'B': '0', 'C': '0', 'D': '0'}
+Cost when suck operation takes place: 1
